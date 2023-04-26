@@ -1,9 +1,9 @@
-from sklearn.model_selection import train_test_split
-from hlam.processing import get_arr_data
-
+import argparse
 import matplotlib.pyplot as plt
 from model import my_model, model_fit
 from process import process_image_data
+from pathlib import Path
+import os
 
 
 def plot_graphs(history, metric):
@@ -13,16 +13,58 @@ def plot_graphs(history, metric):
     plt.ylabel(metric)
     plt.legend([metric, 'val_'+metric])
 
+def parse_arguments() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        prog="Тренировочный скрипт модели для классификации спектрограмм "
+    )
+
+    # parser.add_argument('-c', '--config',
+    #                     type=str,
+    #                     default='configs/RuSentNE/rut5.conf',
+    #                     help="Путь до файла конфигурации относительно корня проекта"
+    #                     )
+
+    # parser.add_argument('-n', '--namespace',
+    #                     type=str,
+    #                     default='default',
+    #                     help="Пространство имен конфигурации"
+    #                     )
+
+    parser.add_argument('-d', '--data',
+                        type=str,
+                        default='/home/sheins/z2_gz/dataset/image',
+                        help="Путь до тренировочного файла относительно корня проекта"
+                        )
+
+    # parser.add_argument('-v', '--valid',
+    #                     type=str,
+    #                     default='data/RuSentNE/interim/valid_part_rut5_v0.csv',
+    #                     help="Путь до валидационного файла относительно корня проекта"
+    #                     )
+    #
+    # parser.add_argument('-l', '--local',
+    #                     action='store_true',
+    #                     default=False,
+    #                     help='Использование путей относительно корня проекта'
+    #                     )
+
+    return parser.parse_args()
+
 if __name__ == "__main__":
 
-    image_data_dir = "/home/sheins/z2_gz/dataset/image"
+
+    arguments = parse_arguments()
+    project_path = Path(__file__).parents[3]
+    image_data_dir = project_path.joinpath(arguments.data)
+
+
     train_ds, val_ds = process_image_data(image_data_dir)
     print(train_ds)
     model = my_model()
     print(model)
     hys = model_fit(model, train_ds, val_ds)
 
-    model.save("./model_test1/my_model1.h5")
+    model.save("~/z2_gz/models/my_model1.h5")
 
     history = hys
     plt.figure(figsize=(16, 8))
