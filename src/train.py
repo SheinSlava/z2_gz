@@ -54,8 +54,14 @@ if __name__ == "__main__":
 
 
     arguments = parse_arguments()
-    project_path = Path(__file__).parents[3]
-    image_data_dir = project_path.joinpath(arguments.data)
+    # project_path = Path(__file__).parents[2]
+    # project_path = '~/z2_gz'
+    # print("!!!!", project_path)
+    #
+    # image_data_dir = project_path.joinpath(arguments.data)
+
+    image_data_dir = arguments.data
+    print("!!!!", image_data_dir)
 
 
     train_ds, val_ds = process_image_data(image_data_dir)
