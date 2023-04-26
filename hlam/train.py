@@ -1,11 +1,8 @@
-import tensorflow as tf
 from sklearn.model_selection import train_test_split
-from model import my_model, model_fit
-from processing import get_arr_data
+from hlam.processing import get_arr_data
 
 import matplotlib.pyplot as plt
 
-import sys
 
 def plot_graphs(history, metric):
     plt.plot(history.history[metric])
@@ -16,7 +13,7 @@ def plot_graphs(history, metric):
 
 if __name__ == "__main__":
 
-    dataset_path = '/home/sheins/z2_gz/dataset/train/train'
+    dataset_path = '/dataset/train/train'
 
     x, y = get_arr_data(dataset_path)
     print(x[2])
@@ -25,12 +22,15 @@ if __name__ == "__main__":
 
     X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.33, random_state=42)
 
-    model = my_model()
-    print(model)
+    print(type(X_train))
+    print(X_train[0].shape)
+
+    # model = my_model()
+    # print(model)
     # hys = model_fit(model, X_train, X_test, y_train, y_test)
     #
     #
-    # model.save("./model_test5/my_model5.h5")
+    # model.save("./model_test1/my_model1.h5")
     #
     # history = hys
     # plt.figure(figsize=(16, 8))
