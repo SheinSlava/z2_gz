@@ -68,9 +68,13 @@ if __name__ == "__main__":
     print(train_ds)
     model = my_model()
     print(model)
-    hys = model_fit(model, train_ds, val_ds)
 
-    model.save("~/z2_gz/models/my_model1.h5")
+    checkpoint_path = "hys_res_2/cp-{epoch:04d}.ckpt"
+    save_path = "~/z2_gz/models/my_model2.h5"
+
+    hys = model_fit(model, train_ds, val_ds, checkpoint_path=checkpoint_path, epochs=150)
+
+    model.save(save_path)
 
     history = hys
     plt.figure(figsize=(16, 8))

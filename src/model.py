@@ -31,9 +31,10 @@ def my_model(num_classes=2, img_height=360, img_width=360):
     return model
 
 
-def model_fit(model, train_ds, val_ds, epochs=10):
+def model_fit(model, train_ds, val_ds, checkpoint_path, epochs=10):
     #     checkpoint_path = "training_1/cp.ckpt"
-    checkpoint_path = "hys_res/cp-{epoch:04d}.ckpt"
+    # checkpoint_path = "hys_res_1/cp-{epoch:04d}.ckpt"
+
     checkpoint_dir = os.path.dirname(checkpoint_path)
 
     cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
