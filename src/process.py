@@ -1,8 +1,3 @@
-from matplotlib import pyplot as plt
-import numpy as np
-import glob
-import os
-
 import pathlib
 import tensorflow as tf
 
@@ -36,3 +31,5 @@ if __name__ == "__main__":
 
     train_ds, val_ds = process_image_data(image_data_dir)
 
+    class_names = train_ds.class_names
+    print(class_names)
