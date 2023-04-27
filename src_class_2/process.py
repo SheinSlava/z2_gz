@@ -1,5 +1,3 @@
-import pathlib
-import tensorflow as tf
 import numpy as np
 import glob
 from PIL import Image
@@ -61,8 +59,3 @@ if __name__ == "__main__":
     print(type(y))
 
     X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.33, random_state=42)
-    # print(len(X_train))
-    # print(X_train[0].shape)
-    #
-    # train_dataset = tf.data.Dataset.from_tensor_slices((X_train, y_train))
-    # print(train_dataset)
