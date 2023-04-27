@@ -3,7 +3,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 import argparse
 from PIL import Image
-
+import glob
 
 def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -19,12 +19,13 @@ def parse_arguments() -> argparse.Namespace:
     return parser.parse_args()
 def processing_spectogramm(pred_dir):
     res = []
-    arr_item = np.load(pred_dir)
-    plt.imsave('pred.jpg', arr_item.T)
-    im = Image.open('pred.jpg')
-    im = im.resize((800, 80), Image.LANCZOS)
-    im = np.array(im)
-    res.append(im)
+    for i in glob.glob(pred_dir):
+        arr_item = np.load(i)
+        plt.imsave('pred.jpg', arr_item.T)
+        im = Image.open('pred.jpg')
+        im = im.resize((800, 80), Image.LANCZOS)
+        im = np.array(im)
+        res.append(im)
     res = np.array(res)
     return res
 
