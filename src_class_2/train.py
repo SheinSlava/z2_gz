@@ -2,6 +2,7 @@ from sklearn.model_selection import train_test_split
 from process import processing_mel
 from model import my_model, model_fit
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def plot_graphs(history, metric):
@@ -14,11 +15,17 @@ def plot_graphs(history, metric):
 if __name__ == "__main__":
 
     INPUT_DIR = '/home/sheins/z2_gz/dataset/train/train'
-    checkpoint_path = "hys_res/cp-{epoch:04d}.ckpt"
-    save_path = "models/my_model2.h5"
+    checkpoint_path = "hys_res_4/cp-{epoch:04d}.ckpt"
+    save_path = "models/my_model4.h5"
 
+    try:
+        x = np.load('x.npy')
+        y = np.load('y.npy')
+    except IOError as e:
+        print(u'не удалось открыть файл')
+        x, y = processing_mel(INPUT_DIR)
 
-    x, y = processing_mel(INPUT_DIR)
+    print(x.shape)
 
     X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.33, random_state=42)
     model = my_model()
