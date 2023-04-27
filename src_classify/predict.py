@@ -39,12 +39,12 @@ if __name__ == "__main__":
     img_array = tf.keras.utils.img_to_array(img)
     img_array = tf.expand_dims(img_array, 0)  # Create a batch
 
-    model = tf.keras.models.load_model('/home/sheins/z2_gz/models/my_model1.h5')
+    model = tf.keras.models.load_model('/home/sheins/z2_gz/models/my_model2.h5')
 
     predictions = model.predict(img_array)
     score = tf.nn.softmax(predictions[0])
 
     print(
-        "This image most likely belongs to {} with a {:.2f} percent confidence."
+        "This diagramm most likely belongs to {} with a {:.2f} percent confidence."
         .format(class_names[np.argmax(score)], 100 * np.max(score))
     )

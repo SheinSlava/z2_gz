@@ -70,7 +70,7 @@ if __name__ == "__main__":
     print(model)
 
     checkpoint_path = "hys_res_2/cp-{epoch:04d}.ckpt"
-    save_path = "~/z2_gz/models/my_model2.h5"
+    save_path = "models/my_model2.h5"
 
     hys = model_fit(model, train_ds, val_ds, checkpoint_path=checkpoint_path, epochs=150)
 
