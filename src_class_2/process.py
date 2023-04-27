@@ -8,8 +8,8 @@ from sklearn.model_selection import train_test_split
 
 def processing_mel(data_path):
 
-    path_cl = data_path + '/clean/*/*'
-    path_no = data_path + '/noisy/*/*'
+    path_cl = data_path + '/clean/20/*'
+    path_no = data_path + '/noisy/20/*'
 
     # print(path_cl)
 
