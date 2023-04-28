@@ -4,6 +4,7 @@
 /notebooks
 *.h5
 *.jpg
+*.npy
 #*.ipynb
 old_src_classify/hys_res_2
 old_src_classify/models
