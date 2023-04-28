@@ -1,7 +1,9 @@
 /dataset
 /explore_data
 /hlam
+/notebooks
 *.h5
-*.ipynb
-src_classify/hys_res_2
-src_classify/models
+*.jpg
+#*.ipynb
+old_src_classify/hys_res_2
+old_src_classify/models
