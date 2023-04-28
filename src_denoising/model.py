@@ -11,24 +11,34 @@ from tensorflow.keras.models import Sequential
 
 def my_model(num_classes=2, img_height=80, img_width=800):
 
-    model = Sequential([
-        layers.Rescaling(1. / 255, input_shape=(img_height, img_width, 3)),
-        layers.Conv2D(32, 3, padding='same', activation='relu'),
-        layers.MaxPooling2D(),
-        layers.Conv2D(16, 3, padding='same', activation='relu'),
-        layers.MaxPooling2D(),
-        layers.Conv2D(16, 3, padding='same', activation='relu'),
-        layers.MaxPooling2D(),
-        layers.Flatten(),
-        layers.Dense(128, activation='relu'),
-        layers.Dense(num_classes)
-    ])
 
-    model.compile(optimizer='adam',
-                  loss=tf.keras.losses.Huber(),
-                  metrics=['mse'])
+    input_img = keras.Input(shape=(80, 800, 3))
 
-    return model
+    x = layers.Conv2D(16, (3, 3), activation='relu', padding='same')(input_img)
+    x = layers.MaxPooling2D((2, 2), padding='same')(x)
+    x = layers.Conv2D(8, (3, 3), activation='relu', padding='same')(x)
+    x = layers.MaxPooling2D((2, 2), padding='same')(x)
+    x = layers.Conv2D(8, (3, 3), activation='relu', padding='same')(x)
+    encoded = layers.MaxPooling2D((2, 2), padding='same')(x)
+
+    # at this point the representation is (4, 4, 8) i.e. 128-dimensional
+
+    x = layers.Conv2D(8, (3, 3), activation='relu', padding='same')(encoded)
+    x = layers.UpSampling2D((2, 2))(x)
+    x = layers.Conv2D(8, (3, 3), activation='relu', padding='same')(x)
+    x = layers.UpSampling2D((2, 2))(x)
+    x = layers.Conv2D(16, (3, 3), activation='relu')(x)
+    x = layers.UpSampling2D((2, 2))(x)
+    decoded = layers.Conv2D(1, (3, 3), activation='sigmoid', padding='same')(x)
+
+    autoencoder = keras.Model(input_img, decoded)
+    autoencoder.compile(optimizer='adam', loss=tf.keras.losses.Huber(), metrics=['mse'])
+
+    # model.compile(optimizer='adam',
+    #               loss=tf.keras.losses.Huber(),
+    #               metrics=['mse'])
+
+    return autoencoder
 
 
 def model_fit(model, train_X, test_X, train_Y, test_Y, checkpoint_path, epochs=10):
