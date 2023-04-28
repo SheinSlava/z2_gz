@@ -1,5 +1,5 @@
 from sklearn.model_selection import train_test_split
-from process import processing_mel
+from process_denoise import processing_mel_denoise
 from model import my_model, model_fit
 from unn_model import unet
 import matplotlib.pyplot as plt
@@ -24,7 +24,7 @@ if __name__ == "__main__":
         y = np.load('y.npy')
     except IOError as e:
         print(u'не удалось открыть файл')
-        x, y = processing_mel(INPUT_DIR)
+        x, y = processing_mel_denoise(INPUT_DIR)
 
     print(x.shape)
 

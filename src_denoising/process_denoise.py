@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 
 
 
-def processing_mel(data_path):
+def processing_mel_denoise(data_path):
 
     path_cl = data_path + '/clean/20/*'
     path_no = data_path + '/noisy/20/*'
@@ -47,7 +47,7 @@ def processing_mel(data_path):
 
 if __name__ == "__main__":
     INPUT_DIR = '/home/sheins/z2_gz/dataset/train/train'
-    x, y = processing_mel(INPUT_DIR)
+    x, y = processing_mel_denoise(INPUT_DIR)
     print(len(x))
     for i in range(len(x)):
         print(x[i].shape)
