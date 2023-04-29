@@ -1,7 +1,7 @@
 from sklearn.model_selection import train_test_split
 from process_den import processing_mel_denoise
 from model import my_model, model_fit
-# from unn_model import unet
+from unn_model import unet
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -15,13 +15,13 @@ def plot_graphs(history, metric):
 
 if __name__ == "__main__":
 
-    INPUT_DIR = '/home/sheins/z2_gz/dataset/train/train'
-    checkpoint_path = "hys_res_denoise_1/cp-{epoch:04d}.ckpt"
-    save_path = "models/my_model_denoise_1.h5"
+    INPUT_DIR = '/s/ls4/users/slava1195/z2_gz/dataset/train/train'
+    checkpoint_path = "hys_res_denoise_7/cp-{epoch:04d}.ckpt"
+    save_path = "models/my_model_denoise_7.h5"
 
     try:
-        x = np.load('x.npy')
-        y = np.load('y.npy')
+        x = np.load('x_no_0.npy')
+        y = np.load('y_cl_0.npy')
     except IOError as e:
         print(u'не удалось открыть файл')
         x, y = processing_mel_denoise(INPUT_DIR)
@@ -29,7 +29,7 @@ if __name__ == "__main__":
     print(x.shape)
 
     X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.33, random_state=42)
-    model = my_model()
+    model = unet()
     print(model.summary())
 
 
@@ -40,7 +40,7 @@ if __name__ == "__main__":
     history = hys
     plt.figure(figsize=(16, 8))
     plt.subplot(1, 2, 1)
-    plot_graphs(history, 'accuracy')
+    plot_graphs(history, 'mse')
     plt.ylim(None, 1)
     plt.subplot(1, 2, 2)
     plot_graphs(history, 'loss')

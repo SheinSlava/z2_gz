@@ -9,14 +9,14 @@ import tensorflow as tf
 
 def processing_mel_denoise(data_path):
 
-    path_cl = data_path + '/clean/20/*'
-    path_no = data_path + '/noisy/20/*'
+    path_cl = data_path + '/clean/*/*'
+    path_no = data_path + '/noisy/*/*'
 
     # print(path_cl)
 
     x_noisy = []
     for i in glob.glob(path_no):
-        # print(i)
+        print(i)
         arr_item = np.load(i)
         arr_item = arr_item.T
         arr_item = arr_item * 1000
@@ -26,7 +26,7 @@ def processing_mel_denoise(data_path):
 
     y_clear = []
     for i in glob.glob(path_cl):
-        # print(i)
+        print(i)
         arr_item = np.load(i)
         arr_item = arr_item.T
         arr_item = arr_item * 1000
@@ -37,15 +37,17 @@ def processing_mel_denoise(data_path):
 
     x_data = x_noisy
     x_data = np.array(x_data)
-    np.save('x_no.npy', x_data)
+    x_data = x_data/1000
+    np.save('x_no_0.npy', x_data)
     y_data = y_clear
     y_data = np.array(y_data)
-    np.save('y_cl.npy', y_data)
+    y_data = y_data/1000
+    np.save('y_cl_0.npy', y_data)
 
     return x_data, y_data
 
 if __name__ == "__main__":
-    INPUT_DIR = '/home/sheins/z2_gz/dataset/train/train'
+    INPUT_DIR = '/s/ls4/users/slava1195/z2_gz/dataset/train/train'
     x, y = processing_mel_denoise(INPUT_DIR)
     print(len(x))
     for i in range(len(x)):
