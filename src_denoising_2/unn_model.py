@@ -7,7 +7,7 @@ import tensorflow as tf
 print(tf.__version__)
 
 #Unet network
-def unet(pretrained_weights = None,input_size = (80,800,3)):
+def unet(pretrained_weights = None,input_size = (80,800,1)):
     #size filter input
     size_filter_in = 16
     #normal initialization of weights
@@ -72,10 +72,10 @@ def unet(pretrained_weights = None,input_size = (80,800,3)):
     conv9 = LeakyReLU()(conv9)
     conv9 = Conv2D(size_filter_in, 3, activation = activation_layer, padding = 'same', kernel_initializer = kernel_init)(conv9)
     conv9 = LeakyReLU()(conv9)
-    conv9 = Conv2D(3, 3, activation = activation_layer, padding = 'same', kernel_initializer = kernel_init)(conv9)
+    conv9 = Conv2D(2, 3, activation = activation_layer, padding = 'same', kernel_initializer = kernel_init)(conv9)
     conv9 = LeakyReLU()(conv9)
-    # conv10 = Conv2D(1, 1, activation = 'tanh')(conv9)
-    conv10 = Conv2D(3, 3, activation = activation_layer, padding = 'same', kernel_initializer = kernel_init)(conv9)
+    conv10 = Conv2D(1, 1, activation = 'tanh')(conv9)
+#     conv10 = Conv2D(3, 3, activation = activation_layer, padding = 'same', kernel_initializer = kernel_init)(conv9)
 
     model = Model(inputs,conv10)
 
