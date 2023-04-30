@@ -47,14 +47,13 @@ def model_fit(model, train_X, test_X, train_Y, test_Y, checkpoint_path, epochs=1
 
     checkpoint_dir = os.path.dirname(checkpoint_path)
 
-
     cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
                                                      save_weights_only=True,
                                                      verbose=1)
 
     history = model.fit(train_X,
                         train_Y,
-                        epochs=10,
+                        epochs=80,
                         validation_data=(test_X, test_Y),
                         validation_steps=30,
                         callbacks=[cp_callback])
