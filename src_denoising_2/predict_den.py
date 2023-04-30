@@ -20,10 +20,10 @@ def processing_funnc(mel_path):
     return list_mels
 
 def mse_evaluate(true, pred):
-    true = true[0]
+    # true = true[0]
     true = np.squeeze(true, axis=-1)
 
-    pred = pred[0]
+    # pred = pred[0]
     pred = np.squeeze(pred, axis=-1)
 
     res_pred = mean_squared_error(true, pred)
@@ -31,11 +31,17 @@ def mse_evaluate(true, pred):
 
 if __name__ == "__main__":
 
+    model_dir = '/home/sheins/z2_gz/src_denoising_2/models/my_model_denoise_7.h5'
+    # mel_dir_cl_1 = '/s/ls4/users/slava1195/z2_gz/dataset/train/train/clean/20/20_5360_20-5360-0059.npy'
+    # mel_dir_no = '/s/ls4/users/slava1195/z2_gz/dataset/train/train/noisy/20/20_5360_20-5360-0059.npy'
 
-    mel_dir_cl_1 = '/s/ls4/users/slava1195/z2_gz/dataset/train/train/clean/20/20_5360_20-5360-0059.npy'
-    mel_dir_no = '/s/ls4/users/slava1195/z2_gz/dataset/train/train/noisy/20/20_5360_20-5360-0059.npy'
+    # model_dir = '/s/ls4/users/slava1195/z2_gz/src_denoising_2/models/my_model_denoise_6.h5'
 
-    model_dir = '/s/ls4/users/slava1195/z2_gz/src_denoising_2/models/my_model_denoise_6.h5'
+    # mel_dir_cl_1 = '/home/sheins/z2_gz/dataset/train/train/clean/20/20_5360_20-5360-0059.npy'
+    # mel_dir_no = '/home/sheins/z2_gz/dataset/train/train/noisy/20/20_5360_20-5360-0059.npy'
+
+    mel_dir_cl_1 = '/home/sheins/z2_gz/dataset/train/train/clean/20/*'
+    mel_dir_no = '/home/sheins/z2_gz/dataset/train/train/noisy/20/*'
 
     proc_mel_cl = processing_funnc(mel_dir_cl_1)
     print(proc_mel_cl.shape)
@@ -46,5 +52,15 @@ if __name__ == "__main__":
     model = tf.keras.models.load_model(model_dir)
     predict = model.predict(proc_mel_no)
 
-    mse_e = mse_evaluate(proc_mel_cl, proc_mel_no)
-    print("MSE: ", mse_e)
+    print(predict.shape)
+    np.save('123.npy', predict)
+    plt.imshow(predict[0])
+
+
+    for i in range(len(predict)):
+        # print(predict[i].shape)
+        mse_e = mse_evaluate(proc_mel_cl[i], proc_mel_no[i])
+        print("MSE actual (clear and noisy): ", mse_e)
+        mse_e_pred = mse_evaluate(proc_mel_cl[i], predict[i])
+        print("MSE predict (clear and denoising predict): ", mse_e_pred)
+        print('___________________________________________')
