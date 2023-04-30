@@ -12,7 +12,7 @@ if __name__ == "__main__":
     mel_dir_cl = '/home/sheins/z2_gz/dataset/val/val/clean/82/*'
 
 
-    model_dir = '/home/sheins/z2_gz/src_denoising/models/my_model_denoise_1.h5'
+    model_dir = '/old_src_denoising/models/my_model_denoise_1.h5'
 
     x_noisy = []
     for i in glob.glob(mel_dir_no):
