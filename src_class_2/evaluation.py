@@ -12,14 +12,14 @@ def parse_arguments() -> argparse.Namespace:
 
     parser.add_argument('-m', '--model_dir',
                         type=str,
-                        default='/home/sheins/z2_gz/src_class_2/models/my_model3.h5',
-                        help="Путь до файла"
+                        default='models/my_model3.h5',
+                        help="Путь до файла модели"
                         )
 
     parser.add_argument('-d', '--data_dir',
                         type=str,
                         default='/home/sheins/z2_gz/dataset/val/val',
-                        help="Путь до файла"
+                        help="Путь до папок clean и noise"
                         )
 
     return parser.parse_args()

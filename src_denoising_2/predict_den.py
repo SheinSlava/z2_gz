@@ -13,14 +13,14 @@ def parse_arguments() -> argparse.Namespace:
 
     parser.add_argument('-m', '--model_dir',
                         type=str,
-                        default='/home/sheins/z2_gz/src_denoising_2/models/my_model_denoise_7.h5',
-                        help="Путь до файла"
+                        default='models/my_model_denoise_7.h5',
+                        help="Путь до файла модели"
                         )
 
     parser.add_argument('-d', '--data_dir',
                         type=str,
                         default='/home/sheins/z2_gz/dataset/val/val',
-                        help="Путь до файла"
+                        help="Путь до папок clean и noise"
                         )
 
     return parser.parse_args()
@@ -82,7 +82,7 @@ if __name__ == "__main__":
         print("MSE actual (clear and noisy): ", mse_e)
         mse_e_pred = mse_evaluate(proc_mel_cl[i], predict[i])
         all_mse_e_pred.append(mse_e_pred)
-        print("MSE predict (clear and denoising predict): ", mse_e_pred)
+        print("MSE predict (clear and denoise): ", mse_e_pred)
         print('___________________________________________')
 
     print("ALL RESULTS")
