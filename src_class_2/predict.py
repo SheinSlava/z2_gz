@@ -13,7 +13,7 @@ def parse_arguments() -> argparse.Namespace:
 
     parser.add_argument('-f', '--file_dir',
                         type=str,
-                        default='/s/ls4/users/slava1195/z2_gz/dataset/train/train/noisy/161/*',
+                        default='/home/sheins/z2_gz/dataset/val/val/clean/5765/5765_231845_5765-231845-0029.npy',
                         help="Путь до файла"
                         )
 
@@ -35,7 +35,7 @@ def processing_spectogramm(pred_dir):
 
 if __name__ == "__main__":
 
-    model_dir = '/home/sheins/z2_gz/src_class_2/models/my_model3.h5'
+    model_dir = 'models/my_model3.h5'
 
     arguments = parse_arguments()
     mel_diagram_dir = arguments.file_dir
